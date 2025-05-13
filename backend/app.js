@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const discountsRouter = require('./routes/discounts');
+const userRouter = require('./routes/user');
 
 dotenv.config();
 
@@ -18,5 +19,6 @@ mongoose
 
 // Register routes
 app.use('/discounts', discountsRouter);
+app.use('/user', userRouter);
 
 module.exports = app;
