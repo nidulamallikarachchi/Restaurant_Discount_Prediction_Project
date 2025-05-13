@@ -3,10 +3,13 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const discountsRouter = require('./routes/discounts');
 const userRouter = require('./routes/user');
+const cors = require('cors');
+
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 // Connect to the correct DB explicitly
