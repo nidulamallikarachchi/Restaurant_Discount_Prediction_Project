@@ -2,7 +2,7 @@ name: Daily MongoDB Live Simulations
 
 on:
   schedule:
-    - cron: '54 2 * * *'  # CHANGE this to your UTC+1 time now for testing
+    - cron: '14 14 * * *'  # CHANGE this to your UTC+1 time now for testing
   workflow_dispatch:       # manual trigger option
 
 jobs:
