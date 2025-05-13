@@ -31,24 +31,50 @@ function DiscountManager() {
       .catch(() => alert("Failed to submit"));
   };
 
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <div className="text-center mt-10 text-gray-500">Loading...</div>;
 
   return (
-    <div>
-      <h2>Discounts for {restaurantId}</h2>
-      <ul>
-        {Object.keys(data.discounts).map(hour => (
-          <li key={hour}>
-            {hour}:00 → {data.discounts[hour]}%
-            <input
-              type="checkbox"
-              checked={!!accepted[hour]}
-              onChange={() => toggle(hour)}
-            />
-          </li>
-        ))}
-      </ul>
-      <button onClick={submit}>Submit</button>
+    <div className="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg border border-gray-200">
+      <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">
+        Discounts for Restaurant {restaurantId}
+      </h2>
+
+      <div className="overflow-x-auto">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-2 border-b text-sm font-medium">Hour</th>
+              <th className="p-2 border-b text-sm font-medium">Discount</th>
+              <th className="p-2 border-b text-sm font-medium">Accept</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.keys(data.discounts).sort((a, b) => Number(a) - Number(b)).map(hour => (
+              <tr key={hour} className="hover:bg-gray-50">
+                <td className="p-2 border-b text-sm">{hour}:00</td>
+                <td className="p-2 border-b text-sm">{data.discounts[hour]}%</td>
+                <td className="p-2 border-b text-sm">
+                  <input
+                    type="checkbox"
+                    checked={!!accepted[hour]}
+                    onChange={() => toggle(hour)}
+                    className="h-4 w-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="text-center mt-6">
+        <button
+          onClick={submit}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded shadow"
+        >
+          Submit Accepted Discounts
+        </button>
+      </div>
     </div>
   );
 }
