@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-// GET /user/active-discounts
 router.get('/active-discounts', async (req, res) => {
   try {
     const today = new Date().toLocaleDateString('en-CA', {
@@ -12,6 +11,7 @@ router.get('/active-discounts', async (req, res) => {
     const db = mongoose.connection.db;
     const collections = await db.listCollections().toArray();
 
+    const restaurantsColl = db.collection('restaurants');
     const result = [];
 
     for (const { name } of collections) {
@@ -28,7 +28,6 @@ router.get('/active-discounts', async (req, res) => {
       if (!latest || !latest.accepted_discounts) continue;
 
       const active = {};
-
       for (const [hour, accepted] of Object.entries(latest.accepted_discounts)) {
         if (accepted) {
           active[hour] = latest.discounts[hour];
@@ -36,9 +35,10 @@ router.get('/active-discounts', async (req, res) => {
       }
 
       if (Object.keys(active).length > 0) {
+        const restaurantInfo = await restaurantsColl.findOne({ _id: latest.restaurant_id });
         result.push({
           restaurant_id: latest.restaurant_id,
-          restaurant_name: latest.restaurant_name || name,
+          restaurant_name: restaurantInfo?.restaurant_name || name,
           date: latest.date,
           active_discounts: active
         });
