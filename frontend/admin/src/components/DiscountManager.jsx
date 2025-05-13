@@ -2,9 +2,8 @@ import {useEffect, useState} from 'react';
 import api from '../api';
 import toast from 'react-hot-toast';
 
-const restaurantId = '0001';
 
-function DiscountManager() {
+function DiscountManager({restaurantId}) {
     const [data, setData] = useState(null);
     const [accepted, setAccepted] = useState({});
 
@@ -14,8 +13,9 @@ function DiscountManager() {
                 setData(res.data);
                 setAccepted(res.data.accepted_discounts || {});
             })
-            .catch(() => toast.error("Failed to fetch discounts"));
-    }, []);
+            .catch(() => alert("Failed to fetch discounts"));
+    }, [restaurantId]);  // ✅ add restaurantId here
+
 
     const toggle = (hour) => {
         setAccepted(prev => ({
