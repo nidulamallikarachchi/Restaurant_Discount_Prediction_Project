@@ -1,4 +1,4 @@
-# Completed by: ChatGPT + Nidula (13/05/2025)
+# Completed by: Nidula (13/05/2025)
 # Simulates daily prediction outputs for restaurants and stores them in MongoDB
 # Stores: expected_customers, discounts, accepted_discounts = null
 

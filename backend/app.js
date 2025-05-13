@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const discountsRouter = require('./routes/discounts');
 const userRouter = require('./routes/user');
+const adminRouter = require('./routes/admin');
+
 const cors = require('cors');
 
 
@@ -23,5 +25,6 @@ mongoose
 // Register routes
 app.use('/discounts', discountsRouter);
 app.use('/user', userRouter);
+app.use('/admin', adminRouter);
 
 module.exports = app;
