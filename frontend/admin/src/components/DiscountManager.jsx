@@ -52,7 +52,7 @@ function DiscountManager({restaurantId}) {
             </h2>
 
             <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
+                <table className="w-full text-left border-collapse divide-y divide-gray-200">
                     <thead>
                     <tr className="bg-gray-100">
                         <th className="p-2 border-b text-sm font-medium">Hour</th>
@@ -63,7 +63,7 @@ function DiscountManager({restaurantId}) {
                     </thead>
                     <tbody>
                     {Object.keys(data.discounts).sort((a, b) => Number(a) - Number(b)).map(hour => (
-                        <tr key={hour} className="hover:bg-gray-50">
+                        <tr key={hour} className="hover:bg-gray-50 odd:bg-white even:bg-gray-50">
                             <td className="p-2 border-b text-sm">{hour}:00</td>
                             <td className="p-2 border-b text-sm">{data.discounts[hour]}%</td>
                             <td className="p-2 border-b text-sm">
@@ -101,7 +101,7 @@ function DiscountManager({restaurantId}) {
             <div className="text-center mt-6">
                 <button
                     onClick={submit}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded shadow"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-2 px-6 rounded shadow"
                 >
                     Submit Accepted Discounts
                 </button>
