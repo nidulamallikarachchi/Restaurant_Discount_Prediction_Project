@@ -28,9 +28,9 @@ router.get('/active-discounts', async (req, res) => {
       if (!latest || !latest.accepted_discounts) continue;
 
       const active = {};
-      for (const [hour, accepted] of Object.entries(latest.accepted_discounts)) {
-        if (accepted) {
-          active[hour] = latest.discounts[hour];
+      for (const [hour, value] of Object.entries(latest.accepted_discounts)) {
+        if (typeof value === 'number') {
+          active[hour] = value;
         }
       }
 

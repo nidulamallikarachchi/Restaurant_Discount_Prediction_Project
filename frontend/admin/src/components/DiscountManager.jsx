@@ -18,9 +18,19 @@ function DiscountManager({restaurantId}) {
 
 
     const toggle = (hour) => {
+        setAccepted(prev => {
+            const current = prev[hour];
+            if (typeof current === 'number') {
+                return {...prev, [hour]: false};
+            }
+            return {...prev, [hour]: data.discounts[hour]};
+        });
+    };
+
+    const updateValue = (hour, value) => {
         setAccepted(prev => ({
             ...prev,
-            [hour]: !prev[hour]
+            [hour]: value
         }));
     };
 
@@ -46,7 +56,8 @@ function DiscountManager({restaurantId}) {
                     <thead>
                     <tr className="bg-gray-100">
                         <th className="p-2 border-b text-sm font-medium">Hour</th>
-                        <th className="p-2 border-b text-sm font-medium">Discount</th>
+                        <th className="p-2 border-b text-sm font-medium">Predicted</th>
+                        <th className="p-2 border-b text-sm font-medium">Custom Discount</th>
                         <th className="p-2 border-b text-sm font-medium">Accept</th>
                     </tr>
                     </thead>
@@ -56,12 +67,22 @@ function DiscountManager({restaurantId}) {
                             <td className="p-2 border-b text-sm">{hour}:00</td>
                             <td className="p-2 border-b text-sm">{data.discounts[hour]}%</td>
                             <td className="p-2 border-b text-sm">
+                                <input
+                                    type="number"
+                                    min="0"
+                                    className="border rounded p-1 w-20"
+                                    disabled={typeof accepted[hour] !== 'number'}
+                                    value={typeof accepted[hour] === 'number' ? accepted[hour] : ''}
+                                    onChange={(e) => updateValue(hour, Number(e.target.value))}
+                                />
+                            </td>
+                            <td className="p-2 border-b text-sm">
                                 <label
                                     className="relative inline-block w-12 h-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer">
 
                                     <input
                                         type="checkbox"
-                                        checked={!!accepted[hour]}
+                                        checked={typeof accepted[hour] === 'number'}
                                         onChange={() => toggle(hour)}
                                         className="opacity-0 w-0 h-0 peer"
                                     />
@@ -71,7 +92,6 @@ function DiscountManager({restaurantId}) {
                                         className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-300 peer-checked:translate-x-6"></span>
                                 </label>
                             </td>
-
                         </tr>
                     ))}
                     </tbody>
