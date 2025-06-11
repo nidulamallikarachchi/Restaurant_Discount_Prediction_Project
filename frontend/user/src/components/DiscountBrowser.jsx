@@ -25,30 +25,31 @@ function DiscountBrowser() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 px-4">
+    <div className="max-w-5xl mx-auto mt-10 px-4">
       <h2 className="text-2xl font-bold text-center mb-6">Today’s Restaurant Discounts</h2>
-      <div className="space-y-6">
+      <div className="grid gap-6 md:grid-cols-2">
         {data.map((restaurant) => (
           <div
             key={restaurant.restaurant_id}
-            className="bg-white shadow-md rounded-lg p-4 border border-gray-200"
+            className="bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden"
           >
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">
-              {restaurant.restaurant_name}
-            </h3>
-            <p className="text-sm text-gray-500 mb-3">Restaurant ID: {restaurant.restaurant_id}</p>
-
-            <div className="flex flex-wrap gap-2">
-              {Object.entries(restaurant.active_discounts)
-                .sort(([a], [b]) => Number(a) - Number(b))
-                .map(([hour, discount]) => (
-                  <div
-                    key={hour}
-                    className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium shadow-sm"
-                  >
-                    {hour}:00 → {discount}%
-                  </div>
-                ))}
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2">
+              <h3 className="text-lg font-semibold">{restaurant.restaurant_name}</h3>
+            </div>
+            <div className="p-4">
+              <p className="text-sm text-gray-500 mb-3">Restaurant ID: {restaurant.restaurant_id}</p>
+              <div className="flex flex-wrap gap-2">
+                {Object.entries(restaurant.active_discounts)
+                  .sort(([a], [b]) => Number(a) - Number(b))
+                  .map(([hour, discount]) => (
+                    <div
+                      key={hour}
+                      className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium shadow-sm"
+                    >
+                      {hour}:00 → {discount}%
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
         ))}

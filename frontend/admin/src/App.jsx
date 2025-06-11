@@ -27,10 +27,12 @@ function App() {
   }, [restaurantId]);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <h1 className="text-3xl text-center font-bold text-blue-700 mb-4">Admin Dashboard</h1>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 py-8">
+      <header className="mb-8">
+        <h1 className="text-4xl text-center font-extrabold text-blue-800">Admin Dashboard</h1>
+      </header>
 
-      <div className="max-w-md mx-auto text-center mb-6">
+      <div className="max-w-md mx-auto mb-8 bg-white p-4 rounded shadow">
         <label className="block mb-2 font-medium text-gray-700">Select Restaurant</label>
         <select
           value={restaurantId}
